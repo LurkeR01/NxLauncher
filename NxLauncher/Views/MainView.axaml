@@ -10,8 +10,6 @@
         Title="NxLauncher"
         WindowStartupLocation="CenterScreen"
         xmlns:vm="clr-namespace:NxLauncher.ViewModels"
-        xmlns:view="clr-namespace:NxLauncher.Views"
-        xmlns:animated="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
         Icon="avares://NxLauncher/Assets/Images/transparent.ico"
         x:DataType="vm:MainViewModel">
     

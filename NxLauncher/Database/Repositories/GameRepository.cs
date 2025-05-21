@@ -102,13 +102,11 @@ public class GameRepository :  IGameRepository
         var parameters = new List<MySqlParameter>();
         var conditions = new List<string>();
 
-        // --- Фильтр по жанрам ---
         if (options.Genres.Any())
         {
             queryBuilder.Append(" JOIN game_genre gg ON g.game_id = gg.game_id");
             queryBuilder.Append(" JOIN genre gr ON gg.genre_id = gr.genre_id");
 
-            // Формируем часть условия для жанров
             var genreNames = options.Genres.Select(g => g.Name).ToList();
             var paramNames = new List<string>();
             for (int i = 0; i < genreNames.Count; i++)
@@ -120,7 +118,6 @@ public class GameRepository :  IGameRepository
             conditions.Add($"gr.genre_name IN ({string.Join(", ", paramNames)})");
         }
         
-        // -- Фильтр по возрстному ограничению
         if (options.AgeRatings.Any())
         {
             var ageRatingNames = options.AgeRatings.Select(a => a.Name).ToList();
@@ -134,7 +131,6 @@ public class GameRepository :  IGameRepository
             conditions.Add($"g.game_age_rating IN ({string.Join(", ", paramNames)})");
         }
 
-        // --- Фильтр по цене ---
         if (options.PriceFilterItem != null)
         {
             if (options.PriceFilterItem.Value > 0)

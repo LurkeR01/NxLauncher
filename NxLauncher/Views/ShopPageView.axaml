@@ -11,15 +11,7 @@
              Foreground="{DynamicResource PrimaryForeground}"
              Background="{DynamicResource PrimaryBackground}"
              xmlns:local="using:NxLauncher.Controls"
-             xmlns:converters="clr-namespace:NxLauncher.Controls.Converters"
-             xmlns:models="clr-namespace:NxLauncher.Models"
-             xmlns:views="clr-namespace:NxLauncher.Views"
              KeyUp="OnRefreshButtonKeyUp">
-    
-    <UserControl.Resources>
-        <converters:PriceToStringConverter x:Key="PriceToStringConverter"/>
-        <converters:EqualityToBoolConverter x:Key="EqualityToBoolConverter"/>
-    </UserControl.Resources>
     
     <Design.DataContext><vm:ShopPageViewModel></vm:ShopPageViewModel></Design.DataContext>
     

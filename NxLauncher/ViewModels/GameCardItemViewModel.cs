@@ -16,7 +16,6 @@ public partial class GameCardItemViewModel : ViewModelBase
         SelectGameCommand = selectGameCommand ?? throw new ArgumentNullException(nameof(selectGameCommand));
     }
 
-    // Прокси-свойства для удобной привязки в XAML
     public int Id => GameCard.Id;
     public string Title => GameCard.Title;
     public string IconUrl => GameCard.IconUrl;

@@ -105,42 +105,42 @@ public partial class LibraryPageViewModel : PageViewModel
     private void LoadGameInfo()
     {
         if (_mainViewModel.CurrentUser == null)
+        {
+            PurchasedGames.Clear();
+            StatusMessage = "Войдите в аккаунт для просмотра библиотеки.";
+            ApplyFilters(); 
+            return;
+        }
+
+        StatusMessage = "Загрузка библиотеки...";
+        OnPropertyChanged(nameof(StatusMessage));
+
+        try
+        {
+            FavoriteGameIds = _favoritesRepository.GetUserFavoriteGameIds(_mainViewModel.CurrentUser.UserId);
+
+            var purchasedGameCards = _purchaseRepository.GetGameCardsByUserId(_mainViewModel.CurrentUser.UserId);
+
+            PurchasedGames.Clear();
+
+            foreach (var gameCard in purchasedGameCards)
             {
-                PurchasedGames.Clear();
-                StatusMessage = "Войдите в аккаунт для просмотра библиотеки.";
-                ApplyFilters(); 
-                return;
+                if (gameCard != null)
+                    PurchasedGames.Add(new GameCardItemViewModel(gameCard, SelectGameCommand));
             }
 
-            StatusMessage = "Загрузка библиотеки...";
-            OnPropertyChanged(nameof(StatusMessage));
-
-            try
-            {
-                FavoriteGameIds = _favoritesRepository.GetUserFavoriteGameIds(_mainViewModel.CurrentUser.UserId);
-
-                var purchasedGameCards = _purchaseRepository.GetGameCardsByUserId(_mainViewModel.CurrentUser.UserId);
-
-                PurchasedGames.Clear();
-
-                foreach (var gameCard in purchasedGameCards)
-                {
-                    if (gameCard != null)
-                        PurchasedGames.Add(new GameCardItemViewModel(gameCard, SelectGameCommand));
-                }
-
-                StatusMessage = PurchasedGames.Any() ? null : "Библиотека пуста";
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading library: {ex.Message}");
-                StatusMessage = "Не удалось загрузить библиотеку.";
-                PurchasedGames.Clear(); 
-            }
-            finally
-            {
-                ApplyFilters(); 
-            }
+            StatusMessage = PurchasedGames.Any() ? null : "Библиотека пуста";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading library: {ex.Message}");
+            StatusMessage = "Не удалось загрузить библиотеку.";
+            PurchasedGames.Clear(); 
+        }
+        finally
+        {
+            ApplyFilters(); 
+        }
     }
 
     private void ExecuteDeletePurchasedGame(int gameId)

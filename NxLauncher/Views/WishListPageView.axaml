@@ -6,7 +6,6 @@
              x:Class="NxLauncher.Views.WishListPageView"
              xmlns:vm="clr-namespace:NxLauncher.ViewModels"
              xmlns:animated="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
-             xmlns:controls="clr-namespace:NxLauncher.Controls"
              x:DataType="vm:WishListPageViewModel"
              xmlns:local="using:NxLauncher.Controls"
              Foreground="{DynamicResource PrimaryForeground}">

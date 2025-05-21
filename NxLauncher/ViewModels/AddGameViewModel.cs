@@ -143,25 +143,23 @@ public partial class AddGameViewModel : ViewModelBase
             .Where(g => g.IsSelected)
             .Select(g => g.Id)
             .ToList(); 
-        _gameRepository.AddGame(game, genreIds, ScreenshotUrls);
-        // try
-        // {
-        //     _gameRepository.AddGame(game, genreIds, ScreenshotUrls);
-        // }
-        // catch (Exception ex)
-        // {
-        //     ErrorMessage = ex.Message;
-        //     Console.WriteLine($"Adding game error: {ex}");
-        // }
+        try
+        {
+            _gameRepository.AddGame(game, genreIds, ScreenshotUrls);
+            GameName = string.Empty;
+            GameDeveloper = null;
+            GamePrice = string.Empty;
+            GameAgeRating = string.Empty;
+            GameImage = string.Empty;
+            GameDescription = string.Empty;
         
-        GameName = string.Empty;
-        GameDeveloper = null;
-        GamePrice = string.Empty;
-        GameAgeRating = string.Empty;
-        GameImage = string.Empty;
-        GameDescription = string.Empty;
-        
-        _closeAction?.Invoke();
+            _closeAction?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+            Console.WriteLine($"Adding game error: {ex}");
+        }
     }
 
     [RelayCommand]
@@ -182,27 +180,23 @@ public partial class AddGameViewModel : ViewModelBase
         if (!string.IsNullOrWhiteSpace(NewGenreName))
         {
             ErrorMessage = null;
-            var newGenre = new Genre { Name = NewGenreName };
-            _genreRepository.Add(newGenre);
-            SelectedGenres.Add(newGenre);
-            NewGenreName = string.Empty;
-            IsAddingNewGenre = false;
-            // try
-            // {
-            //     var newGenre = new Genre { Name = NewGenreName };
-            //     _genreRepository.Add(newGenre);
-            //     SelectedGenres.Add(newGenre);
-            //     NewGenreName = string.Empty;
-            //     IsAddingNewGenre = false;
-            // }
-            // catch (MySqlException ex) when (ex.Number == 1062)
-            // {
-            //     ErrorMessage = $"Жанр '{NewGenreName}' уже существует!";
-            // }
-            // catch (Exception ex)
-            // {
-            //     ErrorMessage = $"Ошибка: {ex.Message}";
-            // }
+            
+            try
+            {
+                var newGenre = new Genre { Name = NewGenreName };
+                _genreRepository.Add(newGenre);
+                SelectedGenres.Add(newGenre);
+                NewGenreName = string.Empty;
+                IsAddingNewGenre = false;
+            }
+            catch (MySqlException ex) when (ex.Number == 1062)
+            {
+                ErrorMessage = $"Жанр '{NewGenreName}' уже существует!";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Ошибка: {ex.Message}";
+            }
         }
     }
     
@@ -213,27 +207,22 @@ public partial class AddGameViewModel : ViewModelBase
         
         if (!string.IsNullOrWhiteSpace(NewDeveloperName))
         {
-            var newDeveloper = new Developer { DeveloperName = NewDeveloperName };
-            _developerRepository.Add(newDeveloper);
-            AllDevelopers.Add(newDeveloper);
-            NewDeveloperName = string.Empty;
-            IsAddingNewDeveloper = false;
-            // try
-            // {
-            //     var newDeveloper = new Developer { DeveloperName = NewDeveloperName };
-            //     _developerRepository.Add(newDeveloper);
-            //     AllDevelopers.Add(newDeveloper);
-            //     NewDeveloperName = string.Empty;
-            //     IsAddingNewDeveloper = false;
-            // }
-            // catch (MySqlException ex) when (ex.Number == 1062)
-            // {
-            //     ErrorMessage = $"Разработчик '{NewDeveloperName}' уже существует!";
-            // }
-            // catch (Exception ex)
-            // {
-            //     ErrorMessage = $"Ошибка: {ex.Message}";
-            // }
+            try
+            {
+                var newDeveloper = new Developer { DeveloperName = NewDeveloperName };
+                _developerRepository.Add(newDeveloper);
+                AllDevelopers.Add(newDeveloper);
+                NewDeveloperName = string.Empty;
+                IsAddingNewDeveloper = false;
+            }
+            catch (MySqlException ex) when (ex.Number == 1062)
+            {
+                ErrorMessage = $"Разработчик '{NewDeveloperName}' уже существует!";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Ошибка: {ex.Message}";
+            }
         }
     }
 
@@ -241,16 +230,15 @@ public partial class AddGameViewModel : ViewModelBase
     private void AddScreenshot()
     {
         ErrorMessage = null;
-        ScreenshotUrls.Add(_screenshotUrl);
-        ScreenshotUrl = string.Empty;
-        // try
-        // {
-        //     ScreenshotUrls.Add(_screenshotUrl);
-        //     ScreenshotUrl = string.Empty;
-        // }
-        // catch (Exception ex)
-        // {
-        //     ErrorMessage = $"Ошибка: {ex.Message}";
-        // }
+        
+        try
+        {
+            ScreenshotUrls.Add(_screenshotUrl);
+            ScreenshotUrl = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Ошибка: {ex.Message}";
+        }
     }
 }
