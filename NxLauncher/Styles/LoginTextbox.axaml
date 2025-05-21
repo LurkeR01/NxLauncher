@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
+            <TextBox
+                Classes="LoginTextBox"
+                Width="340"
+                Height="45"/>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="TextBox.LoginTextBox">
+        <Setter Property="Background" Value="{DynamicResource SecondaryButtonBackground}"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        
+        <Style Selector="^:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{DynamicResource SecondaryButtonBackground}"></Setter>
+        </Style>
+        
+        <Style Selector="^:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{DynamicResource SecondaryButtonBackground}"></Setter>
+        </Style>
+    </Style>
+</Styles>

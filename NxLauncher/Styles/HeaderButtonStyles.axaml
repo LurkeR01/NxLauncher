@@ -1,0 +1,39 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
+            <ToggleButton Classes="HeaderButton" Content="Корзина"></ToggleButton>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="ToggleButton.HeaderButton">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"></Setter>
+        
+        <Style Selector="^:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        
+        <Style Selector="^:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        
+        <Style Selector="^ /template/ ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="0.1" />
+                </Transitions>
+            </Setter>
+        </Style>
+    </Style>
+    
+    <Style Selector="ToggleButton.HeaderButton:checked /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"></Setter>
+        <Setter Property="BorderBrush" Value="White"></Setter>
+    </Style>
+    
+    <Style Selector="ToggleButton.HeaderButton:pointerover:unchecked /template/ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"></Setter>
+    </Style>
+</Styles>

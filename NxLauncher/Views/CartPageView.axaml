@@ -1,0 +1,141 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NxLauncher.Views.CartPageView"
+             xmlns:vm="clr-namespace:NxLauncher.ViewModels"
+             xmlns:animated="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
+             x:DataType="vm:CartPageViewModel"
+             Foreground="{DynamicResource PrimaryForeground}"
+             xmlns:local="using:NxLauncher.Controls">
+    <Design.DataContext><vm:CartPageViewModel></vm:CartPageViewModel></Design.DataContext>
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Interaction.Behaviors>
+            <animated:VerticalScrollViewerAnimatedBehavior></animated:VerticalScrollViewerAnimatedBehavior>
+        </Interaction.Behaviors>
+        
+        <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Text="Моя корзина"
+                       FontSize="38"
+                       FontWeight="UltraBold"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="0,0,0,10"></TextBlock>
+            
+            
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <TextBlock Text="{Binding StatusMessage}" 
+                           Foreground="White" 
+                           IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                           HorizontalAlignment="Left" 
+                           FontSize="25"
+                           FontWeight="Bold"
+                           TextWrapping="Wrap"/>
+                
+                <ItemsRepeater ItemsSource="{Binding CartGames}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Vertical" Spacing="10"/>
+                    </ItemsRepeater.Layout>
+                        
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="vm:GameCardItemViewModel">
+                            <Grid Height="220" HorizontalAlignment="Stretch">
+                                <local:WishlistGameCard 
+                                            Icon="{Binding IconUrl}"
+                                            Title="{Binding Title}"
+                                            Price="{Binding Price, Converter={StaticResource PriceConverter}}"
+                                            AgeRating="{Binding AgeRating}"
+                                            AgeRatingDescription="{Binding AgeRatingDescription}"
+                                            AgeRatingCommand="{Binding $parent[ItemsRepeater].((vm:CartPageViewModel)DataContext).OpenRatingCommand}"
+                                            SelectGameCommand="{Binding $parent[ItemsRepeater].((vm:CartPageViewModel)DataContext).SelectGameCommand}"
+                                            SelectGameId="{Binding Id}"
+                                />
+                                <StackPanel Orientation="Horizontal" 
+                                            Spacing="10"
+                                            Margin="20"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom">
+                                    <Button Content="Удалить"
+                                            Command="{Binding $parent[ItemsRepeater].((vm:CartPageViewModel)DataContext).RemoveFromCartCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            Classes="GoBackButton"
+                                            Height="35"
+                                            Width="80"
+                                            Foreground="{DynamicResource PrimaryForeground}"
+                                            FontWeight="SemiBold"
+                                            Cursor="Hand"></Button>
+                                    
+                                    <Button Content="Перенести в список желаемого"
+                                            Command="{Binding $parent[ItemsRepeater].((vm:CartPageViewModel)DataContext).MoveToWishlistCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            Classes="GoBackButton"
+                                            Height="35"
+                                            Width="240"
+                                            Foreground="{DynamicResource PrimaryForeground}"
+                                            FontWeight="SemiBold"
+                                            Cursor="Hand"></Button>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="30,0" Spacing="20">
+                <TextBlock Text="Все игры и приложения"
+                           Foreground="White"
+                           FontWeight="UltraBold"
+                           FontSize="22"
+                           Margin="0,0,0,10"/>
+                
+                <Grid ColumnDefinitions="Auto, *">
+                    <TextBlock Grid.Column="0" 
+                               Text="Цена"
+                               Foreground="White"
+                               FontSize="16"
+                               HorizontalAlignment="Left"/>
+                    
+                    <TextBlock Grid.Column="1" 
+                               Text="{Binding TotalPrice, Converter={StaticResource PriceConverter}}"
+                               Foreground="White"
+                               FontSize="16"
+                               HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto, *">
+                    <TextBlock Grid.Column="0" 
+                               Text="Налоги"
+                               Foreground="White"
+                               FontSize="16"
+                               HorizontalAlignment="Left"/>
+                    
+                    <TextBlock Grid.Column="1" 
+                               Text="Расчёт при оформлении заказа"
+                               Foreground="White"
+                               FontSize="16"
+                               Margin="15,0,0,0"
+                               HorizontalAlignment="Right"/>
+                </Grid>
+                <Separator Margin="-1"></Separator>
+                <Grid ColumnDefinitions="Auto, *">
+                    <TextBlock Grid.Column="0" 
+                               Text="Промежуточнй итог"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               HorizontalAlignment="Left"/>
+                    
+                    <TextBlock Grid.Column="1" 
+                               Text="{Binding TotalPrice, Converter={StaticResource PriceConverter}}"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               HorizontalAlignment="Right"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

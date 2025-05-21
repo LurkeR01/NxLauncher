@@ -1,0 +1,244 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NxLauncher.Views.LibraryPageView"
+             xmlns:vm="clr-namespace:NxLauncher.ViewModels"
+             xmlns:animated="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
+             xmlns:controls="clr-namespace:NxLauncher.Controls"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:converters="clr-namespace:NxLauncher.Controls.Converters"
+             x:DataType="vm:LibraryPageViewModel"
+             Foreground="{DynamicResource PrimaryForeground}"
+             Background="{DynamicResource PrimaryBackground}">
+    <Design.DataContext><vm:LibraryPageViewModel></vm:LibraryPageViewModel></Design.DataContext>
+    
+    <UserControl.Resources>
+        <converters:EqualityToBoolConverter x:Key="EqualityToBoolConverter"/>
+        <converters:BoolToFavoriteStringConverter x:Key="BoolToFavoriteStringConverter"/>
+    </UserControl.Resources>
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Interaction.Behaviors>
+            <animated:VerticalScrollViewerAnimatedBehavior></animated:VerticalScrollViewerAnimatedBehavior>
+        </Interaction.Behaviors>
+        
+        <Grid RowDefinitions="Auto, Auto, Auto, *" ColumnDefinitions="*, 250">
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Text="Библиотека"
+                       FontSize="38"
+                       FontWeight="UltraBold"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"></TextBlock>
+            
+            <StackPanel Grid.Row="1" Grid.Column="0" 
+                        Orientation="Horizontal" 
+                        Spacing="20" 
+                        Margin="0, 40, 0, 0">
+                <RadioButton Classes="FavoritesButton"
+                             Command="{Binding SetFilterCommand}"
+                             CommandParameter="{x:Static vm:LibraryFilterMode.All}"
+                             IsChecked="{Binding CurrentLibraryFilter, Mode=OneWay, Converter={StaticResource EqualityToBoolConverter}, ConverterParameter={x:Static vm:LibraryFilterMode.All}}"
+                             Height="35"
+                             FontSize="15"
+                             Content="Все"
+                             GroupName="LibraryFilterGroup"
+                             Cursor="Hand"></RadioButton>
+                
+                <RadioButton Classes="FavoritesButton"
+                             Height="35"
+                             Command="{Binding SetFilterCommand}"
+                             CommandParameter="{x:Static vm:LibraryFilterMode.Favorites}"
+                             IsChecked="{Binding CurrentLibraryFilter, Mode=OneWay, Converter={StaticResource EqualityToBoolConverter}, ConverterParameter={x:Static vm:LibraryFilterMode.Favorites}}"
+                             FontSize="15"
+                             Content="Избранное"
+                             GroupName="LibraryFilterGroup"
+                             Cursor="Hand"></RadioButton>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="2" Grid.Column="0" 
+                        Orientation="Horizontal" 
+                        Spacing="7" 
+                        Margin="0,20,0,0">
+                <TextBlock Text="Сортировка:"
+                           Margin="0, 7, 0, 0" 
+                           FontWeight="SemiBold"
+                           FontSize="15"></TextBlock>
+                
+                <ComboBox Classes="SortBox" FontWeight="SemiBold"
+                          ItemsSource="{Binding SortOptions}"
+                          SelectedItem="{Binding SelectedSortOption}"
+                          DisplayMemberBinding="{Binding DisplayName}"
+                          ItemContainerTheme="{StaticResource SortBoxItemTheme}"
+                          Cursor="Hand">
+                </ComboBox>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="{Binding StatusMessage}" 
+                           Foreground="White" 
+                           IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                           HorizontalAlignment="Left" 
+                           FontSize="25"
+                           FontWeight="Bold"
+                           TextWrapping="Wrap"/>
+                
+                <ItemsRepeater ItemsSource="{Binding PurchasedGames}" Margin="-3,0,0,0">
+                    <ItemsRepeater.Layout>
+                        <WrapLayout Orientation="Horizontal" HorizontalSpacing="20"></WrapLayout>
+                    </ItemsRepeater.Layout>
+                        
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="vm:GameCardItemViewModel">
+                            <Button Padding="0" Margin="5" Background="Transparent" BorderThickness="0">
+                                <Border Width="160"
+                                        Height="230"
+                                        VerticalAlignment="Bottom"
+                                        Cursor="Hand">
+                                    <Grid>
+                                        <controls:GameCard Icon="{Binding IconUrl}" 
+                                                           Height="200" 
+                                                           VerticalAlignment="Top"/>
+                                        <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                                            <TextBlock Text="{Binding Title}"
+                                                       Foreground="White"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Bottom"
+                                                       TextWrapping="NoWrap"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       FontSize="16"
+                                                       FontWeight="Bold"
+                                                       MaxWidth="120"></TextBlock>
+                                            <Button VerticalAlignment="Bottom"
+                                                        HorizontalAlignment="Right"
+                                                        Classes="OptionsButton"
+                                                        Margin="0, 0, -5, 0"
+                                                        Cursor="Hand">
+                                                    <PathIcon Data="{StaticResource MoreRegular}" Height="16"/>
+                                                    <Button.Flyout>
+                                                        <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                                            <MenuItem Header="Открыть в магазине"
+                                                                      Command="{Binding $parent[ItemsRepeater].((vm:LibraryPageViewModel)DataContext).SelectGameCommand}"
+                                                                      CommandParameter="{Binding Id}">
+                                                            </MenuItem>
+                                                            <Separator></Separator>
+                                                            <MenuItem Header="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteStringConverter}}"
+                                                                      Command="{Binding $parent[ItemsRepeater].((vm:LibraryPageViewModel)DataContext).ToggleFavoriteCommand}"
+                                                                      CommandParameter="{Binding Id}"
+                                                                      Classes.favorite="{Binding IsFavorite}">
+                                                            </MenuItem>
+                                                            <MenuItem Header="Удалить с аккаунта"
+                                                                      Command="{Binding $parent[ItemsRepeater].((vm:LibraryPageViewModel)DataContext).DeletePurchasedGameCommand}"
+                                                                      CommandParameter="{Binding Id}">
+                                                            </MenuItem>
+                                                        </MenuFlyout>
+                                                    </Button.Flyout>
+                                                </Button>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                                <Button.Styles>
+                                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Style>
+                                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                                        <Setter Property="RenderTransform" Value="scale(0.98)"/>
+                                    </Style>
+                                </Button.Styles>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Spacing="5" Orientation="Vertical">
+                <TextBlock
+                           FontWeight="Bold"
+                           Text="Фильтры"
+                           Margin="10, 10, 0, 15"
+                           Foreground="White"
+                           FontSize="16"></TextBlock>
+        
+                <Separator></Separator>
+        
+                <Expander Header="Жанр"
+                          IsExpanded="False"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          FontSize="14"
+                          FontWeight="SemiBold"
+                          Cursor="Hand">
+                    <ItemsControl ItemsSource="{Binding AvailableGenres}" VerticalAlignment="Center">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ToggleButton
+                                    VerticalAlignment="Center"
+                                    Classes="ExpanderToggleButton"
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                    Cursor="Hand">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+        
+                                        <TextBlock Text="{Binding Name}"
+                                                   Grid.Column="0"
+                                                   HorizontalAlignment="Left"/>
+        
+                                        <PathIcon Data="{StaticResource CheckmarkRegular}"
+                                                  Grid.Column="1"
+                                                  Margin="0, 0, 14, 0"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ToggleButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Expander>
+                
+                <Separator></Separator>
+                
+                <Expander Header="Возрастное ограничение"
+                          IsExpanded="False"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          FontSize="14"
+                          FontWeight="SemiBold"
+                          Cursor="Hand">
+                    <ItemsControl ItemsSource="{Binding AvailableAgeRatings}" VerticalAlignment="Center">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ToggleButton
+                                    VerticalAlignment="Center"
+                                    Classes="ExpanderToggleButton"
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                    Cursor="Hand">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+        
+                                        <TextBlock Text="{Binding Name}"
+                                                   Grid.Column="0"
+                                                   HorizontalAlignment="Left"/>
+        
+                                        <PathIcon Data="{StaticResource CheckmarkRegular}"
+                                                  Grid.Column="1"
+                                                  Margin="0, 0, 14, 0"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ToggleButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Expander>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

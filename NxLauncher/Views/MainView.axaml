@@ -1,0 +1,142 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
+        Width="1280"
+        Height="700"
+        MinHeight="450" MinWidth="1000"
+        x:Class="NxLauncher.MainView"
+        Title="NxLauncher"
+        WindowStartupLocation="CenterScreen"
+        xmlns:vm="clr-namespace:NxLauncher.ViewModels"
+        xmlns:view="clr-namespace:NxLauncher.Views"
+        xmlns:animated="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
+        Icon="avares://NxLauncher/Assets/Images/transparent.ico"
+        x:DataType="vm:MainViewModel">
+    
+    <Design.DataContext><vm:MainViewModel></vm:MainViewModel></Design.DataContext>
+    
+    <Grid Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="Auto, *" RowDefinitions="Auto, *">
+        
+        <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding CurrentPage}"></ContentControl>
+        <ContentControl Grid.Row="1" Grid.Column="1"
+                        Content="{Binding DetailPageViewModel}"
+                        IsVisible="{Binding IsDetailViewVisible}"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        Background="{DynamicResource ApplicationPageBackgroundThemeBrush}"></ContentControl>
+        
+        <Panel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2"
+               IsVisible="{Binding IsOverlayVisible}"
+               Background="{DynamicResource PrimaryBackground}">
+            
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ContentControl Content="{Binding OverlayViewModel}"/>
+            </ScrollViewer>
+        </Panel>
+        
+        <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Padding="20" IsVisible="{Binding IsMainContentInteractive}">
+            <StackPanel Spacing="30">
+                <Image Source="avares://NxLauncher/Assets/Images/transparent.png" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 20, 0, 0"></Image>
+                
+                <StackPanel Spacing="2">
+                    <ToggleButton Classes="SidebarButton" 
+                                  IsChecked="{Binding ShopPageIsActive}"
+                                  Command="{Binding GoToShopPageCommand}"
+                                  Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                            <PathIcon Data="{StaticResource BuildingShopRegular}" Height="18" Width="20"></PathIcon>
+                            <Label Content="Магазин" FontWeight="SemiBold"></Label>
+                        </StackPanel>
+                    </ToggleButton>
+                                    
+                    <ToggleButton Classes="SidebarButton" 
+                            IsChecked="{Binding LibraryPageIsActive}"
+                            Command="{Binding GoToLibraryPageCommand}"
+                            Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                            <PathIcon Data="{StaticResource GridFilled}" Height="20" Width="18"></PathIcon>
+                            <Label Content="Библиотека" FontWeight="SemiBold"></Label>
+                        </StackPanel>
+                    </ToggleButton>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        
+        <Border Grid.Column="1" Padding="30" IsVisible="{Binding IsMainContentInteractive}">
+            <Grid ColumnDefinitions="*, Auto, Auto, Auto, Auto" RowDefinitions="Auto, *">
+                <StackPanel Orientation="Horizontal"  VerticalAlignment="Top" HorizontalAlignment="Left" Spacing="10">
+                    <Button Grid.Column="0"
+                            Margin="-20, 0, 0, 0"
+                            Classes="GoBackButton"
+                            Command="{Binding GoBackCommand}"
+                            HorizontalAlignment="Left"
+                            HorizontalContentAlignment="Left"
+                            Cursor="Hand"
+                            IsVisible="{Binding IsGoBackButtonVisible}">
+                        <PathIcon Data="{StaticResource ChevronLeftRegular}"></PathIcon>
+                    </Button>
+                    
+                    <Border Padding="1" Background="{DynamicResource PrimaryBackground}">
+                        <Button Classes="SearchButton">
+                            <StackPanel Orientation="Horizontal">
+                                <PathIcon Data="{StaticResource SearchRegular}" Height="12" Width="12"></PathIcon>
+                                <TextBox Watermark="Найти в магазине" 
+                                         Text="{Binding SearchQuery, 
+                                         Mode=TwoWay, 
+                                         UpdateSourceTrigger=PropertyChanged}"
+                                         FontWeight="SemiBold"></TextBox>
+                            </StackPanel>
+                        </Button>
+                    </Border>
+                </StackPanel>
+                
+                <ToggleButton Grid.Row="0" Grid.Column="1" 
+                              Classes="HeaderButton" 
+                              Content="Корзина" 
+                              Command="{Binding GoToCartPageCommand}"
+                              IsChecked="{Binding CartPageIsActive}"
+                              FontWeight="SemiBold"
+                              Cursor="Hand"></ToggleButton>
+                <ToggleButton Grid.Row="0" Grid.Column="2" 
+                              Classes="HeaderButton" 
+                              Content="Список желаемого" 
+                              Command="{Binding GoToWishListPageCommand}"
+                              IsChecked="{Binding WishListPageIsActive}"
+                              FontWeight="SemiBold"
+                              Cursor="Hand"></ToggleButton>
+                
+                <Separator Grid.Row="0" Grid.Column="3" RenderTransform="rotate(90deg)"></Separator>
+                
+                <Panel Grid.Row="0" Grid.Column="4" VerticalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal" Spacing="10" IsVisible="{Binding !IsLoggedIn}">
+                        <Button Content="Войти" 
+                                Classes="Purchase"  
+                                Command="{Binding LoginCommand}"
+                                Height="30"
+                                Cursor="Hand"/>
+                        <Button Content="Регистрация" 
+                                Classes="Purchase" 
+                                Command="{Binding RegisterCommand}"
+                                Height="30"
+                                Cursor="Hand"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center"
+                                IsVisible="{Binding IsLoggedIn}">
+                         <TextBlock Text="{Binding CurrentUser.UserName}"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                            FontWeight="SemiBold"/>
+                        <Button Content="Выйти" Classes="Purchase" 
+                                Command="{Binding LogoutCommand}"
+                                Height="30"
+                                Cursor="Hand"/>
+                    </StackPanel>
+                </Panel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

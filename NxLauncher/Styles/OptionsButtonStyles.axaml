@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
+            <Button DockPanel.Dock="Right"
+                    VerticalAlignment="Center"
+                    Classes="OptionsButton">
+                <PathIcon Data="{StaticResource MoreRegular}" Height="16"/>
+                <Button.Flyout>
+                </Button.Flyout>
+            </Button>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Button.OptionsButton">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Height" Value="25"></Setter>
+        <Setter Property="CornerRadius" Value="5"></Setter>
+    </Style>
+    
+    <Style Selector="Button.OptionsButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"></Setter>
+    </Style>
+</Styles>

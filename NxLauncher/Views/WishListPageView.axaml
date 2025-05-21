@@ -1,0 +1,195 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NxLauncher.Views.WishListPageView"
+             xmlns:vm="clr-namespace:NxLauncher.ViewModels"
+             xmlns:animated="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
+             xmlns:controls="clr-namespace:NxLauncher.Controls"
+             x:DataType="vm:WishListPageViewModel"
+             xmlns:local="using:NxLauncher.Controls"
+             Foreground="{DynamicResource PrimaryForeground}">
+    <Design.DataContext><vm:WishListPageViewModel></vm:WishListPageViewModel></Design.DataContext>
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Interaction.Behaviors>
+            <animated:VerticalScrollViewerAnimatedBehavior></animated:VerticalScrollViewerAnimatedBehavior>
+        </Interaction.Behaviors>
+        
+        <Grid RowDefinitions="Auto, Auto, *" ColumnDefinitions="*, 250">
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Text="Мой список желаемого"
+                       FontSize="38"
+                       FontWeight="UltraBold"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="0,0,0,10"></TextBlock>
+            
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Spacing="7">
+                <TextBlock Text="Показать:" Margin="0, 7, 0, 0" FontWeight="SemiBold"></TextBlock>
+                <ComboBox Classes="SortBox" FontWeight="SemiBold"
+                          ItemsSource="{Binding SortOptions}"
+                          SelectedItem="{Binding SelectedSortOption}"
+                          DisplayMemberBinding="{Binding DisplayName}"
+                          ItemContainerTheme="{StaticResource SortBoxItemTheme}"
+                          Cursor="Hand">
+                </ComboBox>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Spacing="5" Orientation="Vertical">
+                <TextBlock
+                           FontWeight="Bold"
+                           Text="Фильтры"
+                           Margin="10, 10, 0, 15"
+                           Foreground="White"
+                           FontSize="16"></TextBlock>
+        
+                <Separator></Separator>
+        
+                <Expander Header="Жанр"
+                          IsExpanded="False"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          FontSize="14"
+                          FontWeight="SemiBold"
+                          Cursor="Hand">
+                    <ItemsControl ItemsSource="{Binding AvailableGenres}" VerticalAlignment="Center">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ToggleButton
+                                    VerticalAlignment="Center"
+                                    Classes="ExpanderToggleButton"
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                    Cursor="Hand">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+        
+                                        <TextBlock Text="{Binding Name}"
+                                                   Grid.Column="0"
+                                                   HorizontalAlignment="Left"/>
+        
+                                        <PathIcon Data="{StaticResource CheckmarkRegular}"
+                                                  Grid.Column="1"
+                                                  Margin="0, 0, 14, 0"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ToggleButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Expander>
+                
+                <Separator></Separator>
+                
+                <Expander Header="Возрастное ограничение"
+                          IsExpanded="False"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          FontSize="14"
+                          FontWeight="SemiBold"
+                          Cursor="Hand">
+                    <ItemsControl ItemsSource="{Binding AvailableAgeRatings}" VerticalAlignment="Center">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ToggleButton
+                                    VerticalAlignment="Center"
+                                    Classes="ExpanderToggleButton"
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                    Cursor="Hand">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+        
+                                        <TextBlock Text="{Binding Name}"
+                                                   Grid.Column="0"
+                                                   HorizontalAlignment="Left"/>
+        
+                                        <PathIcon Data="{StaticResource CheckmarkRegular}"
+                                                  Grid.Column="1"
+                                                  Margin="0, 0, 14, 0"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ToggleButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Expander>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="2" Grid.Column="0">
+                <TextBlock Text="{Binding StatusMessage}" 
+                           Foreground="White" 
+                           IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                           HorizontalAlignment="Left" 
+                           FontSize="25"
+                           FontWeight="Bold"
+                           TextWrapping="Wrap"/>
+                
+                <ItemsRepeater ItemsSource="{Binding WishlistGames}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Vertical" Spacing="10"/>
+                    </ItemsRepeater.Layout>
+                        
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="vm:GameCardItemViewModel">
+                            <Grid Height="220" HorizontalAlignment="Stretch">
+                                <local:WishlistGameCard 
+                                            Icon="{Binding IconUrl}"
+                                            Title="{Binding Title}"
+                                            Price="{Binding Price, Converter={StaticResource PriceConverter}}"
+                                            AgeRating="{Binding AgeRating}"
+                                            AgeRatingDescription="{Binding AgeRatingDescription}"
+                                            AgeRatingCommand="{Binding $parent[ItemsRepeater].((vm:WishListPageViewModel)DataContext).OpenRatingCommand}"
+                                            SelectGameCommand="{Binding $parent[ItemsRepeater].((vm:WishListPageViewModel)DataContext).SelectGameCommand}"
+                                            SelectGameId="{Binding Id}"
+                                />
+                                <StackPanel Orientation="Horizontal" 
+                                            Spacing="10"
+                                            Margin="20"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom">
+                                    <Button Content="Удалить"
+                                            Command="{Binding $parent[ItemsRepeater].((vm:WishListPageViewModel)DataContext).RemoveFromWishlistCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            Classes="GoBackButton"
+                                            Height="35"
+                                            Width="80"
+                                            Foreground="{DynamicResource PrimaryForeground}"
+                                            FontWeight="SemiBold"
+                                            Cursor="Hand"></Button>
+                                    
+                                    <Button Classes="Purchase"
+                                            Command="{Binding $parent[ItemsRepeater].((vm:WishListPageViewModel)DataContext).MoveToCartCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            Height="35"
+                                            Background="#26BBFF"
+                                            Cursor="Hand"
+                                            CornerRadius="7">
+                                        <TextBlock Text="{Binding ButtonText}"
+                                                   Foreground="{DynamicResource PrimaryBackground}"
+                                                   FontWeight="SemiBold"/>
+                                        <Button.Styles>
+                                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                                <Setter Property="Background" Value="#61CDFF"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+                                            </Style>
+                                        </Button.Styles>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,96 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:NxLauncher.Controls"
+                    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+                    x:DataType="local:WishlistGameCard">
+    
+    <Design.PreviewWith>
+        <Border Background="{DynamicResource PrimaryBackground}" Height="380" Width="600">
+            <local:WishlistGameCard Icon="https://upload.wikimedia.org/wikipedia/en/8/86/The_Last_of_Us_Part_I_cover.jpg"
+                                       Title="The Last of Us Part I"
+                                       Price="999.99"
+                                       AgeRating="16+"
+                                       AgeRatingDescription="Strong violence"></local:WishlistGameCard>
+        </Border>
+    </Design.PreviewWith>
+    
+    <ControlTheme x:Key="{x:Type local:WishlistGameCard}" TargetType="local:WishlistGameCard">
+        <Setter Property="Background" Value="{DynamicResource GameCardBackground}"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="Height" Value="220"></Setter>
+        
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        Height="{TemplateBinding Height}">
+                    <Grid ColumnDefinitions="Auto, *" Margin="20">
+                        <Button 
+                            Command="{TemplateBinding SelectGameCommand}"
+                            CommandParameter="{TemplateBinding SelectGameId}"
+                            Background="Transparent"
+                            Cursor="Hand">
+                            <Border Height="150"
+                                    CornerRadius="6"
+                                    ClipToBounds="True"
+                                    VerticalAlignment="Top">
+                                <Image asyncImageLoader:ImageLoader.Source="{TemplateBinding Icon}"
+                                       Stretch="UniformToFill"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            </Border>
+                            
+                            <Button.Styles>
+                                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                </Style>
+                            </Button.Styles>
+                        </Button>
+                        
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="10" Margin="20, 0, 0, 0">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <TextBlock Text="{TemplateBinding Title}"
+                                           Grid.Column="0"
+                                           HorizontalAlignment="Left"
+                                           FontWeight="Bold"
+                                           FontSize="18"></TextBlock>
+                                <TextBlock Text="{TemplateBinding Price}"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontWeight="SemiBold"
+                                           FontSize="16"></TextBlock>
+                            </Grid>
+                            
+                            <Button Classes="AgeRating"
+                                    Cursor="Hand"
+                                    Command="{TemplateBinding AgeRatingCommand}">
+                                <Grid ColumnDefinitions="Auto, *">
+                                    <Image Source="{TemplateBinding AgeRating, Converter={StaticResource AgeRatingToImage}}" 
+                                           Grid.Column="0"
+                                           HorizontalAlignment="Left"
+                                           Height="55"
+                                           Margin="8"></Image>
+                                    
+                                    <StackPanel Grid.Column="1"
+                                                Orientation="Vertical"
+                                                VerticalAlignment="Center">
+                                        <TextBlock Text="{TemplateBinding AgeRating}"
+                                                   Foreground="White"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"></TextBlock>
+                                        <TextBlock Text="{TemplateBinding AgeRatingDescription}"
+                                                   Foreground="{DynamicResource PrimaryForeground}"
+                                                   FontWeight="SemiBold"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

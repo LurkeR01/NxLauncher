@@ -1,0 +1,33 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
+            <DatePicker></DatePicker>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="DatePicker">
+        <Setter Property="Height" Value="40"></Setter>
+        <Setter Property="Background" Value="{DynamicResource SecondaryButtonBackground}"></Setter>
+        <Setter Property="BorderBrush" Value="Gray"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+    </Style>
+    
+    <Style Selector="DatePicker TextBlock#PART_DayTextBlock,
+                DatePicker TextBlock#PART_YearTextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+    
+    <Style Selector="DatePicker TextBlock#PART_MonthTextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="-11,0,0,0"/>
+    </Style>
+    
+    <Style Selector="DatePickerPresenter">
+        <Setter Property="Background" Value="{DynamicResource SecondaryButtonBackground}"></Setter>
+        <Setter Property="BorderBrush" Value="Gray"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+    </Style>
+</Styles>

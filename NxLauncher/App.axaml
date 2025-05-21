@@ -1,0 +1,107 @@
+    <Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="NxLauncher.App"
+             xmlns:local="clr-namespace:NxLauncher"
+             xmlns:converters="clr-namespace:NxLauncher.Controls.Converters"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+                
+             <Application.DataTemplates>
+                 <local:ViewLocator></local:ViewLocator>
+             </Application.DataTemplates>
+             
+             <Application.Styles>
+                 <FluentTheme />
+                 <StyleInclude Source="Styles/Icons.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/SidebarButton.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/HeaderButtonStyles.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/ProfileButton.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/FilterStyles.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/SearchButtonStyles.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/ComboBoxStyle.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/GoBackbutton.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/PurchaseButton.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/GenreButton.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/LoginTextbox.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/DatePickerStyles.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/AddButton.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/OptionsButtonStyles.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/MenuItemStyles.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/FavoritesButtonStyle.axaml"></StyleInclude>
+                 <StyleInclude Source="Styles/AgeRatingButtonStyles.axaml"></StyleInclude>
+                 
+                 <Style Selector="TextBlock">
+                     <Setter Property="FontFamily" Value="Segoe UI" />
+                 </Style>
+             </Application.Styles>
+             
+             
+             <Application.Resources>
+                 <ResourceDictionary>
+                     <SolidColorBrush x:Key="PrimaryBackground">#101014</SolidColorBrush>
+                     <SolidColorBrush x:Key="PrimaryForeground">#808088</SolidColorBrush>
+                     <SolidColorBrush x:Key="PrimaryHoverForeground">White</SolidColorBrush>
+                     <SolidColorBrush x:Key="PrimaryHoverBackground">#343437</SolidColorBrush>
+                     <SolidColorBrush x:Key="PrimaryButtonBackground">#202024</SolidColorBrush>
+                     <SolidColorBrush x:Key="SecondaryForeground">#E0E0E0</SolidColorBrush>
+                     <SolidColorBrush x:Key="SecondaryButtonBackground">#27272D</SolidColorBrush>
+                     <SolidColorBrush x:Key="GameCardBackground">#1B1B20</SolidColorBrush>
+                     <converters:PriceConverter x:Key="PriceConverter"/>
+                     <converters:AgeRatingToImagePathConverter x:Key="AgeRatingToImage"/>
+                     <ResourceDictionary.MergedDictionaries>
+                         <FluentTheme/>
+                         <MergeResourceInclude Source="Controls/GameCard.axaml"></MergeResourceInclude>
+                         <MergeResourceInclude Source="Controls/WishlistGameCard.axaml"></MergeResourceInclude>
+                     </ResourceDictionary.MergedDictionaries>
+                     <x:Double x:Key="DatePickerThemeMinWidth">150</x:Double>
+                 </ResourceDictionary>
+                 
+                 <ControlTheme x:Key="SortBoxItemTheme" TargetType="ComboBoxItem">
+                     <Setter Property="Background" Value="#2B2B2B"></Setter>
+                     <Setter Property="Height" Value="43"></Setter>
+                     <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                     <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+                     <Setter Property="CornerRadius" Value="10"></Setter>
+                     <Setter Property="Padding" Value="10,5, 25, 5"/>
+                     <Setter Property="Margin" Value="3, 0"></Setter>
+                     
+                     <Style Selector="^:pointerover">
+                         <Setter Property="Background" Value="#4F4F52"></Setter>
+                     </Style>
+                     
+                     <Style Selector="^ /template/ Panel#PART_PopupContainer">
+                         <Setter Property="Background" Value="#303034"></Setter>
+                     </Style>
+                     
+                     <Style Selector="^ /template/ ContentPresenter">
+                         <Setter Property="Transitions">
+                             <Transitions>
+                                 <BrushTransition Property="Foreground" Duration="0.1" />
+                                 <BrushTransition Property="Background" Duration="0.1" />
+                             </Transitions>
+                         </Setter>
+                     </Style>
+                 </ControlTheme>
+
+                 <ControlTheme x:Key="MenuFlyoutItemTheme" TargetType="MenuItem">
+                     <Setter Property="Background" Value="#2B2B2B"></Setter>
+                     <Setter Property="Height" Value="43"></Setter>
+                     <Setter Property="CornerRadius" Value="10"></Setter>
+                     <Setter Property="Padding" Value="10,5, 25, 5"/>
+                     <Setter Property="Margin" Value="3, 0"></Setter>
+                     
+                     <Style Selector="^:pointerover">
+                         <Setter Property="Background" Value="#4F4F52"></Setter>
+                     </Style>
+                     
+                     <Style Selector="^ /template/ ContentPresenter">
+                         <Setter Property="Transitions">
+                             <Transitions>
+                                 <BrushTransition Property="Foreground" Duration="0.1" />
+                                 <BrushTransition Property="Background" Duration="0.1" />
+                             </Transitions>
+                         </Setter>
+                     </Style>
+                 </ControlTheme>
+             </Application.Resources>
+</Application>

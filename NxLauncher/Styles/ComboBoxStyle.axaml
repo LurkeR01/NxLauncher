@@ -1,0 +1,32 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="200" Background="{DynamicResource PrimaryBackground}">
+            <ComboBox SelectedIndex="0" Classes="Rating">
+                <ComboBoxItem Classes="SortBox">Все</ComboBoxItem>
+                <ComboBoxItem Classes="SortBox">Новинка</ComboBoxItem>
+                <ComboBoxItem Classes="SortBox">По алфавиту</ComboBoxItem>
+                <ComboBoxItem Classes="SortBox">Цена: по убыванию</ComboBoxItem>
+                <ComboBoxItem Classes="SortBox">Цена: по возрастанию</ComboBoxItem>
+            </ComboBox>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Sortbox -->
+    <Style Selector="ComboBox.SortBox">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"></Setter>
+        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+    </Style>
+    
+    <Style Selector="ComboBox.SortBox:pointerover /template/ Border">
+        <Setter Property="Background" Value="Transparent"></Setter>
+    </Style>
+    
+    <!-- Ratingbox -->
+    <Style Selector="ComboBox.Rating">
+        <Setter Property="Background" Value="{DynamicResource SecondaryButtonBackground}"></Setter>
+        <Setter Property="BorderBrush" Value="Gray"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+    </Style>
+</Styles>

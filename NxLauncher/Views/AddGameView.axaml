@@ -1,0 +1,193 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:NxLauncher.ViewModels"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NxLauncher.Views.AddGameView"
+             x:DataType="vm:AddGameViewModel">
+    
+    <Grid ColumnDefinitions="*, *">
+        <Button Grid.Column="1"
+                Content="✕"
+                Width="40"
+                Height="40"
+                Margin="35"
+                Classes="GoBackButton"
+                Command="{Binding CancelCommand}"
+                HorizontalAlignment="Right"
+                FontSize="20"
+                FontWeight="Bold"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Left"
+                Cursor="Hand">
+        </Button>
+        
+        
+        <StackPanel Grid.ColumnSpan="2" Orientation="Vertical" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="25, 25">
+            <TextBlock Grid.ColumnSpan="2"
+                       HorizontalAlignment="Center"
+                       Text="Добавление игры" 
+                       Foreground="White" 
+                       FontWeight="Bold" 
+                       FontSize="34" 
+                       Margin="0, 0, 0, 20"></TextBlock>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Название игры" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <TextBox Text="{Binding GameName, Mode=TwoWay}"
+                         HorizontalAlignment="Left"
+                         Classes="LoginTextBox"
+                         Width="300"
+                         Height="40"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Разработчик" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <ComboBox SelectedItem="{Binding GameDeveloper}" 
+                          Classes="Rating"
+                          ItemsSource="{Binding AllDevelopers}"
+                          DisplayMemberBinding="{Binding DeveloperName}">
+                </ComboBox>
+                
+                <Button Content="+"
+                        Command="{Binding ToggleAddDeveloperCommand}"
+                        Classes="AddButton"
+                        Margin="-5, -2, 0, 0"
+                        Cursor="Hand"></Button>
+            </StackPanel>
+            
+            <TextBox Text="{Binding NewDeveloperName}"
+                     IsVisible="{Binding IsAddingNewDeveloper}"
+                     Width="350"
+                     Margin="21, 0, 0, 0"
+                     KeyUp="OnDeveloperTextBoxKeyUp"></TextBox>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Жанры" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Width="350">
+                    <ItemsControl ItemsSource="{Binding SelectedGenres}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" ItemWidth="150" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          Margin="0,0,10,5"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+                <Button Content="+"
+                        Command="{Binding ToggleAddGenreCommand}"
+                        Classes="AddButton"
+                        Margin="-5, -2, 0, 0"
+                        Cursor="Hand"></Button>
+            </StackPanel>
+            
+            <TextBox Text="{Binding NewGenreName}"
+                     IsVisible="{Binding IsAddingNewGenre}"
+                     Width="350"
+                     Margin="21, 0, 0, 0"
+                     KeyUp="OnGenreTextBoxKeyUp"></TextBox>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Цена ₴" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <TextBox Text="{Binding GamePrice, Mode=TwoWay}"
+                         Classes="LoginTextBox"
+                         HorizontalAlignment="Left"
+                         Width="45"
+                         Height="40"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Рейтинг" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <ComboBox SelectedItem="{Binding GameRating}"
+                          Classes="Rating"
+                          ItemsSource="{Binding Ratings}"
+                          Cursor="Hand">
+                </ComboBox>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Возрастной рейтинг" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <ComboBox SelectedItem="{Binding GameAgeRating}"
+                          Classes="Rating"
+                          ItemsSource="{Binding AgeRatings}"
+                          Cursor="Hand">
+                </ComboBox>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Обложка (URL)" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <TextBox Text="{Binding GameImage, Mode=TwoWay}"
+                         Classes="LoginTextBox"
+                         HorizontalAlignment="Left"
+                         Width="300"
+                         Height="40"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Описане" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <TextBox Text="{Binding GameDescription, Mode=TwoWay}"
+                         Classes="LoginTextBox"
+                         HorizontalAlignment="Left"
+                         TextWrapping="Wrap"
+                         VerticalContentAlignment="Top"
+                         Width="300"
+                         Height="150"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Дата выхода" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <DatePicker SelectedDate="{Binding GameReleaseDate}"
+                            HorizontalAlignment="Left"
+                            Cursor="Hand"></DatePicker>
+            </StackPanel>
+            
+            
+            <Separator HorizontalAlignment="Stretch" Margin="-10, 0, -10, 0"></Separator>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="Скриншоты" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                <TextBox Text="{Binding ScreenshotUrl, Mode=TwoWay}"
+                         KeyUp="OnScreenshotTextBoxKeyUp"
+                         Classes="LoginTextBox"
+                         HorizontalAlignment="Left"
+                         Width="300"
+                         Height="40"/>
+            </StackPanel>
+            
+            <Border CornerRadius="10" ClipToBounds="True">
+                <Image asyncImageLoader:ImageLoader.Source="{Binding ScreenshotUrl}"
+                       Stretch="UniformToFill"
+                       MaxHeight="300"
+                       MaxWidth="600"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+            </Border>
+            
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+
+            <Button Content="Добавить игру"
+                    Classes="Purchase"
+                    Command="{Binding AddGameCommand}" 
+                    HorizontalAlignment="Stretch"
+                    Background="#26BBFF"
+                    Foreground="{DynamicResource PrimaryBackground}"
+                    Height="45"
+                    Cursor="Hand">
+                <Button.Styles>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#61CDFF"/>
+                        <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+                    </Style>
+                </Button.Styles>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

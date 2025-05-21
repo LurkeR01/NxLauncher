@@ -1,0 +1,23 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
+            <Button Classes="GenreButton" Content="PRG"></Button>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Button.GenreButton">
+        <Setter Property="Height" Value="28"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="CornerRadius" Value="6"></Setter>
+        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryForeground}"></Setter>
+        <Setter Property="Background" Value="#343437"></Setter>
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+    </Style>
+    
+    <Style Selector="Button.GenreButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#636366"></Setter>
+    </Style>
+</Styles>

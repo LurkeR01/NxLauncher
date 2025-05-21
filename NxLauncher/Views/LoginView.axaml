@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:NxLauncher.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NxLauncher.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+    
+    <Border Background="#18181C" 
+            CornerRadius="10"
+            Padding="20" BoxShadow="0 0 20 5 #111111" 
+            BorderThickness="1" 
+            BorderBrush="Gray"
+            Height="550"
+            Width="400">
+        <StackPanel Spacing="15" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image Source="avares://NxLauncher/Assets/Images/transparent.png" Height="80" HorizontalAlignment="Center" Margin="0, -20, 0, 30"></Image>
+            
+            <TextBlock Text="Вход в аккаунт" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0, 0, 0, 30"/>
+            
+            <TextBlock Text="Имя пользователя" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+            <TextBox Text="{Binding Username, Mode=TwoWay}"
+                     Classes="LoginTextBox"
+                     Width="340"
+                     Height="45"/>
+            <TextBlock Text="Пароль" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+            <TextBox Text="{Binding Password, Mode=TwoWay}" 
+                     Classes="LoginTextBox"
+                     PasswordChar="*"
+                     Width="340"
+                     Height="45"/>
+
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Button Content="Войти" 
+                        Classes="Purchase"
+                        Command="{Binding LoginCommand}" 
+                        IsDefault="True"
+                        Width="166"
+                        Height="45"
+                        Background="#26BBFF"
+                        Foreground="#101014"
+                        Cursor="Hand">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#61CDFF"/>
+                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"></Setter>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+                <Button Content="Отмена"
+                        Classes="Purchase"
+                        Command="{Binding CancelCommand}" 
+                        IsCancel="True"
+                        Width="166"
+                        Height="45"
+                        Cursor="Hand"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

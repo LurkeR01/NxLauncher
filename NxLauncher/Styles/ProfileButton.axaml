@@ -1,0 +1,39 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
+            <ToggleButton Grid.Row="0" Grid.Column="4" Classes="ProfileButton">
+                <PathIcon Data="{StaticResource PersonRegular}" Height="20" Width="18"></PathIcon>
+            </ToggleButton>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="ToggleButton.ProfileButton">
+        <Setter Property="Height" Value="40"></Setter>
+        <Setter Property="Width" Value="40"></Setter>
+        <Setter Property="Background" Value="{DynamicResource PrimaryButtonBackground}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"></Setter>
+        <Setter Property="CornerRadius" Value="20"></Setter>
+        
+        <Style Selector="^ /template/ ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0.1" />
+                </Transitions>
+            </Setter>
+        </Style>
+    </Style>
+    
+    <Style Selector="ToggleButton.ProfileButton PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"></Setter>
+    </Style>
+    
+    <Style Selector="ToggleButton.ProfileButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"/>
+    </Style>
+    
+    <Style Selector="ToggleButton.ProfileButton:checked /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"></Setter>
+        <Setter Property="BorderBrush" Value="White"></Setter>
+    </Style>
+</Styles>

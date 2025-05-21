@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:NxLauncher.Controls"
+                    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+                    x:DataType="local:GameCard">
+    
+    <Design.PreviewWith>
+        <Border Background="{DynamicResource PrimaryBackground}" Height="380" Width="300">
+            <local:GameCard Icon="avares://NxLauncher/Assets/Images/transparentwhite.png"
+                            Title="The Last of Us Part I"
+                            Price="999.99"></local:GameCard>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type local:GameCard}" TargetType="local:GameCard">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Height" Value="NaN"></Setter>
+        <Setter Property="Width" Value="160"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="FontSize" Value="16"></Setter>
+         
+        <Style Selector="^ /template/ Rectangle#HoverOverlay">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0.1" />
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        Height="{TemplateBinding Height}"
+                        Width="{TemplateBinding Width}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Cursor="Hand">
+                    
+                    <StackPanel Spacing="4" Orientation="Vertical">
+                        <Grid Width="160" Height="200">
+                            <Border Height="{TemplateBinding Height}"
+                                    CornerRadius="8"
+                                    ClipToBounds="True">
+                                <Image asyncImageLoader:ImageLoader.Source="{TemplateBinding Icon}"
+                                       Stretch="UniformToFill"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            </Border>
+
+                            <Rectangle x:Name="HoverOverlay"
+                                       Fill="White"
+                                       Opacity="0"
+                                       RadiusX="8" RadiusY="8"/>
+                        </Grid>
+                        <TextBlock Text="{TemplateBinding Title}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   FontWeight="Bold"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   HorizontalAlignment="Left"
+                                   TextWrapping="Wrap"
+                                   Margin="0, 6, 0, 0"></TextBlock>
+                        <TextBlock Text="{TemplateBinding Price}"
+                                   Foreground="{DynamicResource SecondaryForeground}"
+                                   HorizontalAlignment="Left"
+                                   FontSize="15"
+                                   Margin="0, 13, 0, 0"
+                                   FontWeight="SemiBold"></TextBlock>
+                    </StackPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        
+        <Style Selector="^:pointerover /template/ Rectangle#HoverOverlay">
+            <Setter Property="Opacity" Value="0.4"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

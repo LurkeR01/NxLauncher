@@ -1,0 +1,31 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+    
+    <Style Selector="Button.Purchase">
+        <Setter Property="Background" Value="#343437"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryForeground}"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Height" Value="50"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+        
+        <Style Selector="^ /template/ ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="0.1" />
+                    <BrushTransition Property="Background" Duration="0.1" />
+                </Transitions>
+            </Setter>
+        </Style>
+    </Style>
+    
+    <Style Selector="Button.Purchase:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#636366"></Setter>
+    </Style>
+</Styles>

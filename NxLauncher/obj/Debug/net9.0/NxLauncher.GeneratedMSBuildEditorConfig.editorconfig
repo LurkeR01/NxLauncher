@@ -1,0 +1,114 @@
+is_global = true
+build_property.AvaloniaNameGeneratorIsEnabled = true
+build_property.AvaloniaNameGeneratorBehavior = InitializeComponent
+build_property.AvaloniaNameGeneratorDefaultFieldModifier = internal
+build_property.AvaloniaNameGeneratorFilterByPath = *
+build_property.AvaloniaNameGeneratorFilterByNamespace = *
+build_property.AvaloniaNameGeneratorViewFileNamingStrategy = NamespaceAndClassName
+build_property.AvaloniaNameGeneratorAttachDevTools = true
+build_property.MvvmToolkitEnableINotifyPropertyChangingSupport = true
+build_property._MvvmToolkitIsUsingWindowsRuntimePack = false
+build_property.CsWinRTComponent = 
+build_property.CsWinRTAotOptimizerEnabled = 
+build_property.CsWinRTAotWarningLevel = 
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = NxLauncher
+build_property.ProjectDir = C:\Users\leoni\Desktop\Коледж\Курсовая\NxLauncher\NxLauncher\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/App.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Controls/GameCard.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Controls/WishlistGameCard.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/AddButton.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/AgeRatingButtonStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/ComboBoxStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/DatePickerStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/FavoritesButtonStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/FilterStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/GenreButton.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/GoBackButton.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/HeaderButtonStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/Icons.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/LoginTextbox.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/MenuItemStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/OptionsButtonStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/ProfileButton.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/PurchaseButton.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/SearchButtonStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Styles/SidebarButton.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/AddGameView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/CartPageView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/GamePageView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/LibraryPageView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/LoginView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/MainView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/RegisterView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/ShopPageView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/leoni/Desktop/Коледж/Курсовая/NxLauncher/NxLauncher/Views/WishListPageView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

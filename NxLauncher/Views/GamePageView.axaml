@@ -1,0 +1,426 @@
+<UserControl x:Name="Root"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NxLauncher.Views.GamePageView"
+             xmlns:vm="using:NxLauncher.ViewModels"
+             xmlns:animated="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
+             xmlns:models="clr-namespace:NxLauncher.Models"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             x:DataType="vm:GamePageViewModel"
+             Background="{DynamicResource PrimaryBackground}">
+    
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Hidden">
+                <Interaction.Behaviors>
+                    <animated:VerticalScrollViewerAnimatedBehavior />
+                </Interaction.Behaviors>
+            
+            <Grid ColumnDefinitions="*, 270" Margin="0, 0, 11, 0">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Grid.Column="0" Text="{Binding SelectedGame.Name}" 
+                               FontSize="38" 
+                               FontWeight="UltraBold" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               IsVisible="{Binding !IsEditing}"/>
+                    <TextBox Text="{Binding EditedName, Mode=TwoWay}"
+                             HorizontalAlignment="Left"
+                             FontSize="32"
+                             Classes="LoginTextBox"
+                             Width="400"
+                             Height="50"
+                             IsVisible="{Binding IsEditing}"/>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Column="0" Text="{Binding SelectedGame.Rating}" 
+                                   FontSize="14" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center"/>
+                        <PathIcon Data="{StaticResource StarRegular}" Height="13"></PathIcon>
+                        
+                        <TextBlock Grid.Column="0" Text="{Binding SelectedGame.AgeRating}" 
+                                   FontSize="14" 
+                                   Margin="8, 0, 0, 0"
+                                   Foreground="{DynamicResource PrimaryForeground}"
+                                   VerticalAlignment="Center"
+                                   IsVisible="{Binding !IsEditing}"/>
+                        
+                        <TextBlock Grid.Column="0" Text="{Binding SelectedGame.AgeRatingDescription}" 
+                                   FontSize="14" 
+                                   Margin="8, 0, 0, 0"
+                                   Foreground="{DynamicResource PrimaryForeground}"
+                                   VerticalAlignment="Center"
+                                   IsVisible="{Binding !IsEditing}"/>
+                        <ComboBox SelectedItem="{Binding EditedAgeRating}"
+                                  Classes="Rating"
+                                  Margin="0, 0, 0, 0"
+                                  ItemsSource="{Binding AgeRatings}"
+                                  Cursor="Hand"
+                                  IsVisible="{Binding IsEditing}">
+                        </ComboBox>
+                    </StackPanel>
+                    
+            
+                    <StackPanel Grid.Column="0" Margin="0, 10, 10, 10">
+                        <Panel>
+                            <Grid Margin="0,10,10,10">
+                                <Border CornerRadius="10" ClipToBounds="True">
+                                    <Image asyncImageLoader:ImageLoader.Source="{Binding SelectedScreenshot.ImageUrl}"
+                                           Stretch="UniformToFill"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+                                </Border>
+
+                                <Grid>
+                                    <Button Content="&lt;" 
+                                            Command="{Binding PreviousScreenshotCommand}"
+                                            Width="45"
+                                            HorizontalAlignment="Left"
+                                            VerticalContentAlignment="Center"
+                                            VerticalAlignment="Stretch"
+                                            Background="#80000000"
+                                            Foreground="White"
+                                            BorderThickness="0"
+                                            Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Grid>
+                                                    <Border Background="#20000000"
+                                                            CornerRadius="0,5,5,0"
+                                                            Margin="0,0,10,0">
+                                                        <Border.Effect>
+                                                            <BlurEffect Radius="10"/>
+                                                        </Border.Effect>
+                                                    </Border>
+                            
+                                                    <ContentPresenter Content="{TemplateBinding Content}"
+                                                                      HorizontalAlignment="Center"
+                                                                      VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                    <Button Content="&gt;" 
+                                            Command="{Binding NextScreenshotCommand}"
+                                            Width="45"
+                                            HorizontalAlignment="Right"
+                                            VerticalContentAlignment="Center"
+                                            VerticalAlignment="Stretch"
+                                            Background="#80000000"
+                                            Foreground="White"
+                                            BorderThickness="0"
+                                            Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Grid>
+                                                    <Border Background="#20000000"
+                                                            CornerRadius="5,0,0,5"
+                                                            Margin="10,0,0,0">
+                                                        <Border.Effect>
+                                                            <BlurEffect Radius="10"/>
+                                                        </Border.Effect>
+                                                    </Border>
+                            
+                                                    <ContentPresenter Content="{TemplateBinding Content}"
+                                                                      HorizontalAlignment="Center"
+                                                                      VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Panel>
+                        
+                        <StackPanel Orientation="Horizontal" Spacing="5" Margin="0, -5, 0, 5" IsVisible="{Binding IsEditing}">
+                            <Button Classes="Purchase"
+                                    Command="{Binding DeleteCurrentScreenshotCommand}"
+                                    Margin="0, 5"
+                                    Height="40"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    Content="Удалить текущий скриншот">
+                            </Button>
+                            
+                            <Button Classes="Purchase"
+                                    Command="{Binding ToggleAddingScreenshotCommand}"
+                                    Margin="0, 5"
+                                    Height="40"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    Content="Добавить скришнот">
+                            </Button>
+                            
+                            <TextBox Text="{Binding EditedScreenshotUrl, Mode=TwoWay}"
+                                     KeyUp="OnScreenshotTextBoxKeyUp"
+                                     Classes="LoginTextBox"
+                                     HorizontalAlignment="Left"
+                                     Width="300"
+                                     Height="40"
+                                     IsVisible="{Binding IsAddingScreenshot}"/>
+                        </StackPanel>
+                        
+                        <TextBlock Text="{Binding SelectedGame.Description}" 
+                                   FontSize="17"
+                                   HorizontalAlignment="Left" 
+                                   TextWrapping="Wrap" 
+                                   Margin="0,0,0,10"
+                                   Foreground="{DynamicResource SecondaryForeground}"
+                                   IsVisible="{Binding !IsEditing}"/>
+                        <TextBox Text="{Binding EditedDescription, Mode=TwoWay}"
+                                 TextWrapping="Wrap"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalContentAlignment="Top"
+                                 Classes="LoginTextBox"
+                                 Height="200"
+                                 IsVisible="{Binding IsEditing}"/>
+                        
+                        <TextBlock Text="Жанры"
+                                   FontSize="17"
+                                   HorizontalAlignment="Left"
+                                   Margin="0, 20, 0, 0"
+                                   Foreground="{DynamicResource SecondaryForeground}"></TextBlock>
+                        
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border BorderBrush="Gray" 
+                                    BorderThickness="1" 
+                                    CornerRadius="5" 
+                                    Padding="10" 
+                                    Width="350"
+                                    HorizontalAlignment="Left"
+                                    IsVisible="{Binding IsEditing}">
+                                <ItemsControl ItemsSource="{Binding AllGenres}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" ItemWidth="150" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Name}"
+                                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                      Margin="0,0,10,5"
+                                                      Cursor="Hand"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Border>
+                            
+                            <Button Content="+"
+                                    Command="{Binding ToggleAddGenreCommand}"
+                                    Classes="AddButton"
+                                    Margin="-5, -2, 0, 0"
+                                    Cursor="Hand"
+                                    IsVisible="{Binding IsEditing}"></Button>
+                        </StackPanel>
+                        
+                        <TextBox Text="{Binding NewGenreName}"
+                                 IsVisible="{Binding IsAddingNewGenre}"
+                                 HorizontalAlignment="Left"
+                                 Width="350"
+                                 Margin="0, 5, 0, 0"
+                                 KeyUp="OnGenreTextBoxKeyUp"></TextBox>
+                        
+                        <StackPanel IsVisible="{Binding !IsEditing}">
+                            <ItemsControl ItemsSource="{Binding GameGenres}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" Spacing="6"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Classes="GenreButton"
+                                                Content="{Binding Name}"></Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Spacing="10" Margin="0, 5" IsVisible="{Binding IsEditing}">
+                        <TextBlock Text="Обложка" Foreground="Gray" FontWeight="SemiBold"></TextBlock>
+                        <TextBox Text="{Binding EditedImageUrl, Mode=TwoWay}"
+                                 Classes="LoginTextBox"
+                                 HorizontalAlignment="Left"
+                                 Width="300"
+                                 Height="40"/>
+                    </StackPanel>
+                    
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                    
+                    <Button Classes="Purchase"
+                            Command="{Binding ToggleEditMode}"
+                            Height="40"
+                            FontSize="14"
+                            VerticalAlignment="Top"
+                            Cursor="Hand"
+                            IsVisible="{Binding IsAdmin}">
+                        <StackPanel Orientation="Horizontal" Spacing="4" Margin="-2, 0, 0, 0">
+                            <PathIcon Data="{StaticResource EditRegular}" Height="12"></PathIcon>
+                            <TextBlock FontWeight="SemiBold" FontSize="12">Редактировать</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button Classes="Purchase"
+                            Command="{Binding DeleteGameCommand}"
+                            Height="40"
+                            FontSize="14"
+                            VerticalAlignment="Top"
+                            Cursor="Hand"
+                            IsVisible="{Binding IsAdmin}">
+                        <StackPanel Orientation="Horizontal" Spacing="4" Margin="-2, 0, 0, 0">
+                            <PathIcon Data="{StaticResource DeleteRegular}" Height="12"></PathIcon>
+                            <TextBlock FontWeight="SemiBold" FontSize="12">Удалить из магазина</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button Classes="Purchase"
+                            Command="{Binding SaveChangesCommand}"
+                            Margin="0, 5"
+                            Background="#26BBFF"
+                            Foreground="{DynamicResource PrimaryBackground}"
+                            Height="40"
+                            VerticalAlignment="Top"
+                            Cursor="Hand"
+                            Content="Сохранить изменения"
+                            IsVisible="{Binding IsAdmin}">
+                        
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#61CDFF"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="9">
+                    
+                    <TextBlock Text="{Binding SelectedGame.Price, StringFormat='{}{0} грн.'}" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Left"
+                               FontSize="15"
+                               Margin="11, 0, 0, 0"
+                               IsVisible="{Binding !IsEditing}"/>
+                    <TextBox Text="{Binding EditedPrice, Mode=TwoWay}"
+                             Classes="LoginTextBox"
+                             HorizontalAlignment="Left"
+                             Width="75"
+                             Height="40"
+                             Margin="11, 0, 0, 0"
+                             IsVisible="{Binding IsEditing}"/>
+                    
+                    <Button Classes="Purchase"
+                            Command="{Binding GoToLibraryCommand}"
+                            Margin="11, 0, 11, 0"
+                            Background="#26BBFF"
+                            Cursor="Hand"
+                            IsVisible="{Binding IsPurchased}">
+                        <TextBlock Text="В библиотеке" Foreground="{DynamicResource PrimaryBackground}" FontWeight="SemiBold"></TextBlock>
+                         
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#61CDFF"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                    
+                    <Button Classes="Purchase"
+                            Command="{Binding PurchaseGameCommand}"
+                            Margin="11, 0, 11, 0"
+                            Background="#26BBFF"
+                            Cursor="Hand"
+                            IsVisible="{Binding CanPurchaseOrInteract}">
+                        <TextBlock Text="Купить сейчас" Foreground="{DynamicResource PrimaryBackground}" FontWeight="SemiBold"></TextBlock>
+                         
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#61CDFF"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <Button Classes="Purchase"
+                            FontWeight="SemiBold"
+                            Content="{Binding CartButtonText}"
+                            Command="{Binding AddToCartCommand}"
+                            Margin="11, 0, 11, 0"
+                            Cursor="Hand"
+                            IsVisible="{Binding CanPurchaseOrInteract}"></Button>
+                    <Button Classes="Purchase"
+                            FontWeight="SemiBold"
+                            Content="{Binding WishlistButtonText}"
+                            Command="{Binding AddToWishlistCommand}"
+                            Margin="11, 0, 11, 0"
+                            Cursor="Hand"
+                            IsVisible="{Binding CanPurchaseOrInteract}"></Button>
+                    
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Text="Разработчик" 
+                                   Foreground="{DynamicResource PrimaryForeground}" 
+                                   HorizontalAlignment="Left"
+                                   Margin="11, 0, 0, 0"
+                                   FontSize="14"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding SelectedGameDeveloper.DeveloperName}" 
+                                   Foreground="White" 
+                                   HorizontalAlignment="Right"
+                                   Margin="0, 0, 11, 0"
+                                   FontSize="14"
+                                   Cursor="Hand"
+                                   IsVisible="{Binding !IsEditing}"/>
+                        
+                        <ComboBox SelectedItem="{Binding EditedDeveloper}" 
+                                  Classes="Rating"
+                                  Margin="0, 0, 11, 0"
+                                  HorizontalAlignment="Right"
+                                  ItemsSource="{Binding AllDevelopers}"
+                                  DisplayMemberBinding="{Binding DeveloperName}"
+                                  IsVisible="{Binding IsEditing}">
+                        </ComboBox>
+                    </Grid>
+                    
+                    
+                    
+                    <Separator></Separator>
+                    
+                    <Grid ColumnDefinitions="*,Auto" IsVisible="{Binding !IsEditing}">
+                        <TextBlock Text="Дата выхода" 
+                                   Foreground="{DynamicResource PrimaryForeground}"
+                                   Margin="11, 0, 0, 0"
+                                   FontSize="15"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding SelectedGame.ReleaseDate, StringFormat='yyyy-MM-dd'}" 
+                                   Foreground="White"
+                                   HorizontalAlignment="Right"
+                                   Margin="0, 0, 11, 0"
+                                   FontSize="15"/>
+                    </Grid>
+                    <DatePicker SelectedDate="{Binding EditedReleaseDate}"
+                                Width="250"
+                                Height="40"
+                                HorizontalAlignment="Center"
+                                Cursor="Hand"
+                                IsVisible="{Binding IsEditing}"></DatePicker>
+                    
+                    <Separator></Separator>
+                    
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Text="Платформа" 
+                                   Foreground="{DynamicResource PrimaryForeground}" 
+                                   Margin="11, 0, 0, 0"
+                                   FontSize="15"/>
+                        <Image Grid.Column="1" 
+                               Source="avares://NxLauncher/Assets/Images/WindowsIcon.png" 
+                               HorizontalAlignment="Right"
+                               Margin="0, 0, 11, 0"></Image>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+</UserControl>
+    

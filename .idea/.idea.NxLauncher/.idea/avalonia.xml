@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="NxLauncher/App.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Controls/GameCard.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Controls/LibraryGameCard.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Controls/WishlistGameCard.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Controls/asdf.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/MainView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/MainWindow.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/AddButton.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/AgeRatingButtonStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/AppDefaultStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/CardBorderStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/ComboBoxStyle.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/DatePickerStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/FavoritesButtonStyle.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/FilterStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/GenreButton.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/GoBackButton.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/GoBackbutton.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/HeaderButtonStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/HeaderButtonSytles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/Icons.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/LoginTextbox.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/MenuItemStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/OptionsButton.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/OptionsButtonStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/ProfileButton.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/PurchaseButton.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/SearchButtonStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/SidebarButton.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/SidebarButtonStyles.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Styles/SortComboBoxStyle.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/AddGameView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/CartPageView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/GamePageView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/LibraryPageView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/LoginView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/MainPageView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/MainView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/RegisterView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/ShopPageView.axaml" value="NxLauncher/NxLauncher.csproj" />
+        <entry key="NxLauncher/Views/WishListPageView.axaml" value="NxLauncher/NxLauncher.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

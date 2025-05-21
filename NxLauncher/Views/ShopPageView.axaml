@@ -1,0 +1,213 @@
+<UserControl x:Name="ShopPageViewRoot"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NxLauncher.Views.ShopPageView"
+             xmlns:vm="clr-namespace:NxLauncher.ViewModels"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Animated"
+             x:DataType="vm:ShopPageViewModel"  
+             Foreground="{DynamicResource PrimaryForeground}"
+             Background="{DynamicResource PrimaryBackground}"
+             xmlns:local="using:NxLauncher.Controls"
+             xmlns:converters="clr-namespace:NxLauncher.Controls.Converters"
+             xmlns:models="clr-namespace:NxLauncher.Models"
+             xmlns:views="clr-namespace:NxLauncher.Views"
+             KeyUp="OnRefreshButtonKeyUp">
+    
+    <UserControl.Resources>
+        <converters:PriceToStringConverter x:Key="PriceToStringConverter"/>
+        <converters:EqualityToBoolConverter x:Key="EqualityToBoolConverter"/>
+    </UserControl.Resources>
+    
+    <Design.DataContext><vm:ShopPageViewModel></vm:ShopPageViewModel></Design.DataContext>
+    
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Interaction.Behaviors>
+            <ia:VerticalScrollViewerAnimatedBehavior></ia:VerticalScrollViewerAnimatedBehavior>
+        </Interaction.Behaviors>
+        
+        <Grid ColumnDefinitions="*, 250">
+            <Grid Grid.Column="0" Grid.RowDefinitions="50, *">
+                <StackPanel Orientation="Horizontal" Spacing="7">
+                    <TextBlock Text="Показать:" Margin="0, 7, 0, 0" FontWeight="SemiBold"></TextBlock>
+                    <ComboBox Classes="SortBox" FontWeight="SemiBold"
+                              ItemsSource="{Binding SortOptions}"
+                              SelectedItem="{Binding SelectedSortOption}"
+                              DisplayMemberBinding="{Binding DisplayName}"
+                              ItemContainerTheme="{StaticResource SortBoxItemTheme}"
+                              Cursor="Hand">
+                    </ComboBox>
+                    
+                    <Button Classes="Purchase"
+                            Command="{Binding AddGameCommand}"
+                            Height="30"
+                            VerticalAlignment="Top"
+                            Cursor="Hand"
+                            IsVisible="{Binding IsAdmin}">
+                        <StackPanel Orientation="Horizontal" Spacing="4" Margin="-2, 0, 0, 0">
+                            <PathIcon Data="{StaticResource AddRegular}" Height="12"></PathIcon>
+                            <TextBlock FontWeight="SemiBold" FontSize="12">Добавить</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                
+                <ItemsRepeater Grid.Row="1" Grid.Column="0" ItemsSource="{Binding FilteredGameCards}">
+                    <ItemsRepeater.Layout>
+                        <WrapLayout Orientation="Horizontal" HorizontalSpacing="20"></WrapLayout>
+                    </ItemsRepeater.Layout>
+                    
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="vm:GameCardItemViewModel">
+                            <Button Command="{Binding SelectGameCommand}"
+                                    CommandParameter="{Binding Id}"
+                                    Padding="0" Margin="5" Background="Transparent" BorderThickness="0">
+                                <local:GameCard Icon="{Binding IconUrl}"
+                                                   Title="{Binding Title}"
+                                                   Price="{Binding Price, Converter={StaticResource PriceConverter}}"
+                                                   />
+                                <Button.Styles>
+                                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Style>
+                                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                                        <Setter Property="RenderTransform" Value="scale(0.98)"/>
+                                    </Style>
+                                </Button.Styles>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </Grid>
+            
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <Interaction.Behaviors>
+                    <ia:VerticalScrollViewerAnimatedBehavior></ia:VerticalScrollViewerAnimatedBehavior>
+                </Interaction.Behaviors>
+                
+                <StackPanel Spacing="5" Orientation="Vertical">
+                    <TextBlock
+                               FontWeight="Bold"
+                               Text="Фильтры"
+                               Margin="10, 10, 0, 15"
+                               Foreground="White"
+                               FontSize="16"></TextBlock>
+                    
+                    <Separator></Separator>
+                    
+                    <Expander Header="Жанр" IsExpanded="False" 
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center" 
+                              FontSize="14" 
+                              FontWeight="SemiBold"
+                              Cursor="Hand">
+                        <ItemsControl ItemsSource="{Binding AvailableGenres}" VerticalAlignment="Center">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ToggleButton
+                                        VerticalAlignment="Center"
+                                        Classes="ExpanderToggleButton"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                        Cursor="Hand">
+                                        <Grid HorizontalAlignment="Stretch"> 
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/> 
+                                                <ColumnDefinition Width="Auto"/> 
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="{Binding Name}" 
+                                                       Grid.Column="0"
+                                                       HorizontalAlignment="Left"/>
+
+                                            <PathIcon Data="{StaticResource CheckmarkRegular}"
+                                                      Grid.Column="1"
+                                                      Margin="0, 0, 14, 0"
+                                                      HorizontalAlignment="Right"
+                                                      VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </ToggleButton>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Expander>
+                    
+                    <Separator></Separator>
+                    
+                    <Expander Header="Цена" 
+                              IsExpanded="False"
+                              HorizontalAlignment="Stretch" 
+                              VerticalAlignment="Center" 
+                              FontSize="14"
+                              FontWeight="SemiBold"
+                              Cursor="Hand">
+                        <ItemsControl ItemsSource="{Binding PriceFilters}" VerticalAlignment="Center">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton
+                                        GroupName="PriceFilterGroup"
+                                        VerticalAlignment="Center"
+                                        Classes="ExpanderToggleButton"
+                                        HorizontalAlignment="Stretch"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                        Cursor="Hand">
+                                        <Grid HorizontalAlignment="Stretch"> 
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/> 
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="{Binding DisplayText}" 
+                                                       Grid.Column="0"
+                                                       HorizontalAlignment="Left"/>
+                                        </Grid>
+                                    </RadioButton>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Expander>
+                    
+                    <Separator></Separator>
+                    
+                    <Expander Header="Возрастное ограничение"
+                          IsExpanded="False"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          FontSize="14"
+                          FontWeight="SemiBold"
+                          Cursor="Hand">
+                    <ItemsControl ItemsSource="{Binding AvailableAgeRatings}" VerticalAlignment="Center">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ToggleButton
+                                    VerticalAlignment="Center"
+                                    Classes="ExpanderToggleButton"
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                    Cursor="Hand">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+        
+                                        <TextBlock Text="{Binding Name}"
+                                                   Grid.Column="0"
+                                                   HorizontalAlignment="Left"/>
+        
+                                        <PathIcon Data="{StaticResource CheckmarkRegular}"
+                                                  Grid.Column="1"
+                                                  Margin="0, 0, 14, 0"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ToggleButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Expander>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

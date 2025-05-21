@@ -1,0 +1,33 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
+            <Button Grid.Row="0" Grid.Column="0" 
+                    Classes="GoBackButton"
+                    HorizontalAlignment="Left" 
+                    Margin="10">
+                <PathIcon Data="{StaticResource ChevronLeftRegular}"></PathIcon>
+            </Button>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Button.GoBackButton">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"></Setter>
+        <Setter Property="Height" Value="15"></Setter>
+        <Setter Property="Width" Value="15"></Setter>
+    </Style>
+    
+    <Style Selector="Button.GoBackButton PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"></Setter>
+        <Setter Property="Height" Value="15"></Setter>
+    </Style>
+    
+    <Style Selector="Button.GoBackButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"></Setter>
+    </Style>
+    
+    <Style Selector="Button.GoBackButton:pointerover PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverForeground}"></Setter>
+    </Style>
+</Styles>
