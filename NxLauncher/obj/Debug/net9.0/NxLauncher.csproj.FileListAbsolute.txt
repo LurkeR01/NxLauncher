@@ -104,3 +104,4 @@ C:\Users\leoni\Desktop\Коледж\Курсовая\NxLauncher\NxLauncher\bin\D
 C:\Users\leoni\Desktop\Коледж\Курсовая\NxLauncher\NxLauncher\bin\Debug\net9.0\BCrypt.Net-Next.dll
 C:\Users\leoni\Desktop\Коледж\Курсовая\NxLauncher\NxLauncher\bin\Debug\net9.0\DialogHost.Avalonia.dll
 C:\Users\leoni\Desktop\Коледж\Курсовая\NxLauncher\NxLauncher\bin\Debug\net9.0\MsBox.Avalonia.dll
+C:\Users\leoni\Desktop\Коледж\Курсовая\NxLauncher\NxLauncher\obj\Debug\net9.0\NxLauncher.sourcelink.json

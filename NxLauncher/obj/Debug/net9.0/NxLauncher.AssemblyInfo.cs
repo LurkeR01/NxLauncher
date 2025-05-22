@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NxLauncher")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7eafbf656ba51e4274e2fb6ac04f56263aa8a69a")]
 [assembly: System.Reflection.AssemblyProductAttribute("NxLauncher")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NxLauncher")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

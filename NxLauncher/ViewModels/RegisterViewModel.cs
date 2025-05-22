@@ -48,8 +48,8 @@ public partial class RegisterViewModel : ViewModelBase
     {
         if (string.IsNullOrWhiteSpace(Username) ||
             string.IsNullOrWhiteSpace(Email) ||
-            string.IsNullOrWhiteSpace(Password) ||
-            string.IsNullOrWhiteSpace(Age))
+            string.IsNullOrWhiteSpace(Password) || Password.Length < 6 ||
+            string.IsNullOrWhiteSpace(Age)) 
         {
             return false;
         }
